@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import matplotlib.pyplot as plt
+from solve_ode import solve_ode
 
 app = Flask(__name__)
 
@@ -15,11 +16,13 @@ def plot():
     # Convert the string to a number
     number = int(string)
 
-    # Plot the number on a matplotlib plot
-    plt.plot([number])
-
+    # Use the number in the ODE
+    fig, ax = solve_ode(number)
+    # # Plot the number on a matplotlib plot
+    # plt.plot([number])
+    fig.show()
     # Save the plot to an image file
-    plt.savefig("static/plot.png")
+    fig.savefig("static/plot.png")
 
     # Render the plot on the webpage
     return render_template("plot.html")
